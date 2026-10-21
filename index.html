@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UCON Harassment Prevention Training - Completion Quiz</title>
+<style>
+  :root{
+    --zoho-blue:#4a90d9;
+    --zoho-blue-dark:#3d7bc0;
+    --zoho-text:#333;
+    --zoho-muted:#666;
+    --zoho-border:#ccc;
+    --monday-blue:#0073ea;
+    --admin-bg:#f6f7f9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Open Sans","Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--zoho-text);
+    background:#fff;
+    font-size:14px;
+    line-height:1.55;
+  }
+  /* ---------- demo chrome ---------- */
+  .demobar{
+    background:#1f2733;color:#e8ecf1;
+    display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    padding:9px 18px;font-size:12.5px;
+    position:sticky;top:0;z-index:50;
+  }
+  .demobar .tag{background:#ffb020;color:#1f2733;font-weight:700;border-radius:3px;padding:2px 8px;font-size:11px;letter-spacing:.4px}
+  .demobar nav{display:flex;gap:6px;flex-wrap:wrap}
+  .demobar nav a{
+    color:#c7d0db;text-decoration:none;padding:4px 10px;border-radius:4px;border:1px solid transparent;cursor:pointer;
+  }
+  .demobar nav a.active{color:#fff;border-color:#4a5568;background:#2c3646}
+  .demobar nav a:hover{color:#fff}
+  .demobar .spacer{flex:1}
+  .demobar .fic{color:#8fa0b3;font-style:italic}
+  .view{display:none}
+  .view.on{display:block}
+
+  /* ---------- Zoho form skin ---------- */
+  .zoho-page{background:#fff;min-height:calc(100vh - 41px);padding:34px 16px 60px}
+  .zoho-wrap{max-width:800px;margin:0 auto}
+  .zoho-title-band{
+    background:#f5f5f5;color:#333;
+    font-size:23px;font-weight:400;
+    padding:16px 26px;margin-bottom:30px;
+    border-radius:2px;
+  }
+  .zoho-desc{padding:0 26px 26px;color:#444;font-size:14px;max-width:720px}
+  .zoho-field{padding:0 26px 26px}
+  .zoho-label{display:block;font-weight:700;font-size:13.5px;margin-bottom:7px;color:#333}
+  .zoho-label .req{color:#d33;font-weight:700;margin-left:2px}
+  .zoho-input{
+    width:100%;max-width:420px;height:36px;
+    border:1px solid var(--zoho-border);border-radius:3px;
+    padding:5px 10px;font-size:14px;font-family:inherit;color:#333;
+    outline:none;transition:border-color .15s, box-shadow .15s;
+  }
+  .zoho-input:focus{border-color:#66afe9;box-shadow:0 0 6px rgba(102,175,233,.55)}
+  .zoho-input.err{border-color:#d9534f;box-shadow:0 0 6px rgba(217,83,79,.35)}
+  .zoho-error{color:#d9534f;font-size:12.5px;margin-top:6px;display:none}
+  .zoho-note{background:#fdf6e5;border:1px solid #f0dfa8;border-radius:4px;padding:12px 14px;margin:0 26px 26px;font-size:13px;color:#5a4a12;display:none}
+  .zoho-note strong{display:block;margin-bottom:2px}
+  .zoho-actions{text-align:center;padding:6px 0 34px}
+  .zoho-btn{
+    background:var(--zoho-blue);color:#fff;border:none;border-radius:3px;
+    font-size:14px;font-family:inherit;padding:9px 26px;cursor:pointer;
+    box-shadow:0 1px 2px rgba(0,0,0,.18);
+  }
+  .zoho-btn:hover{background:var(--zoho-blue-dark)}
+  .zoho-q{padding:0 26px 26px}
+  .zoho-q .qtext{font-weight:700;font-size:13.5px;margin-bottom:10px}
+  .zoho-q .qtext .req{color:#d33}
+  .zoho-opt{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:14px;color:#333;cursor:pointer}
+  .zoho-opt input{accent-color:var(--zoho-blue);width:15px;height:15px;cursor:pointer}
+  .zoho-footer{
+    border-top:1px dashed #cfcfcf;margin-top:10px;padding:26px 16px 8px;text-align:center;
+    color:#555;font-size:12.5px;
+  }
+  .zoho-footer .abuse{color:#4a90d9;text-decoration:none}
+  .zoho-powered{margin-top:14px;color:#666;font-size:13px}
+  .zoho-powered b{color:#3d8b40}
+
+  /* demo helper */
+  .demo-hint{
+    max-width:800px;margin:0 auto 22px;background:#eef4fb;border:1px solid #c9dcf0;
+    border-radius:4px;padding:10px 14px;font-size:12.5px;color:#2c4a6b;
+  }
+  .demo-hint code{background:#fff;border:1px solid #c9dcf0;border-radius:3px;padding:1px 6px;cursor:pointer}
+  .demo-hint .lbl{font-weight:700;letter-spacing:.3px;font-size:11px;color:#5a7699;text-transform:uppercase}
+
+  /* confirmation */
+  .confirm-box{max-width:680px;margin:40px auto 0;text-align:center;padding:0 16px}
+  .confirm-check{width:58px;height:58px;border-radius:50%;background:#e7f6e7;border:2px solid #63b963;color:#3f9e3f;font-size:30px;line-height:54px;margin:0 auto 18px}
+  .confirm-box h2{font-size:21px;font-weight:600;margin-bottom:10px}
+  .confirm-box p{color:#444;margin-bottom:10px}
+  .cred-msg{
+    background:#eef7ee;border:1px solid #bfe3bf;border-radius:4px;
+    padding:16px 18px;margin:22px auto;max-width:560px;text-align:left;font-size:14px;color:#23402a;
+  }
+  .cred-msg .who{font-weight:700}
+  .support-line{font-size:13.5px;color:#444;max-width:560px;margin:0 auto}
+  .support-line a{color:var(--zoho-blue)}
+  .link-btn{background:none;border:none;color:var(--zoho-blue);font-size:13.5px;cursor:pointer;text-decoration:underline;margin-top:14px}
+
+  /* ---------- email preview ---------- */
+  .mail-page{background:#e8eaed;min-height:calc(100vh - 41px);padding:36px 16px 70px}
+  .mail-card{max-width:680px;margin:0 auto;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.18);overflow:hidden}
+  .mail-head{padding:18px 24px;border-bottom:1px solid #eee}
+  .mail-head .subj{font-size:17px;font-weight:600;margin-bottom:12px}
+  .mail-from{display:flex;gap:12px;align-items:center}
+  .mail-avatar{width:40px;height:40px;border-radius:50%;background:#0b8043;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .mail-from .fname{font-size:13.5px;font-weight:600}
+  .mail-from .faddr{font-size:12px;color:#777}
+  .mail-body{padding:28px 24px 34px}
+  .cred-card{border:1px solid #d8d8d8;border-radius:8px;overflow:hidden;max-width:520px;margin:0 auto}
+  .cred-top{background:#14315c;color:#fff;padding:20px 24px}
+  .cred-top .org{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#9fb6d8}
+  .cred-top .course{font-size:19px;font-weight:600;margin-top:4px}
+  .cred-mid{padding:20px 24px}
+  .cred-mid .nm{font-size:17px;font-weight:600}
+  .cred-mid .row{display:flex;justify-content:space-between;font-size:13px;color:#555;padding:5px 0;border-bottom:1px dashed #e4e4e4}
+  .cred-mid .row:last-child{border-bottom:none}
+  .cred-mid .row b{color:#333;font-weight:600}
+  .cred-bottom{display:flex;gap:18px;align-items:center;padding:18px 24px;background:#fafafa;border-top:1px solid #eee}
+  .qr{width:88px;height:88px;display:grid;grid-template-columns:repeat(9,1fr);grid-template-rows:repeat(9,1fr);border:3px solid #14315c;border-radius:4px;overflow:hidden;flex:none}
+  .qr i{background:#fff}
+  .qr i.b{background:#14315c}
+  .verify-btn{display:inline-block;background:var(--monday-blue);background:#1a73e8;color:#fff;text-decoration:none;border-radius:4px;padding:9px 18px;font-size:13.5px;font-weight:600}
+  .cred-fine{font-size:11.5px;color:#888;margin-top:8px}
+  .mail-foot{padding:16px 24px;border-top:1px solid #eee;font-size:12px;color:#888}
+
+  /* ---------- admin guide ---------- */
+  .admin-page{background:var(--admin-bg);min-height:calc(100vh - 41px);padding:34px 16px 80px}
+  .admin-wrap{max-width:860px;margin:0 auto}
+  .admin-wrap h1{font-size:22px;font-weight:600;margin-bottom:6px}
+  .admin-sub{color:#555;margin-bottom:26px;font-size:14px}
+  .admin-card{background:#fff;border:1px solid #e2e5ea;border-radius:8px;padding:24px 26px;margin-bottom:22px}
+  .admin-card h2{font-size:17px;font-weight:600;margin-bottom:4px}
+  .admin-card h2 .pill{font-size:11px;font-weight:700;vertical-align:middle;margin-left:8px;border-radius:10px;padding:2px 9px}
+  .pill-zoho{background:#e8f0fb;color:#2b62a6}
+  .pill-monday{background:#eae8fd;color:#5038c7}
+  .admin-card h3{font-size:14px;font-weight:700;margin:18px 0 8px;color:#222}
+  .admin-card p,.admin-card li{font-size:13.5px;color:#333}
+  .admin-card ol,.admin-card ul{padding-left:20px;margin:8px 0}
+  .admin-card li{margin-bottom:5px}
+  .menu-path{background:#f2f4f7;border:1px solid #e0e3e8;border-radius:4px;padding:2px 7px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;white-space:nowrap}
+  .shot{margin:12px 0 4px;border:1px solid #dfe3e8;border-radius:6px;overflow:hidden;max-width:640px}
+  .shot img{display:block;width:100%}
+  .shot .cap{font-size:11.5px;color:#777;padding:6px 10px;background:#fafbfc;border-top:1px solid #eee}
+  .srclink{font-size:12.5px}
+  .srclink a{color:#1a73e8;word-break:break-all}
+  .callout{border-left:3px solid #f0ad4e;background:#fff8ec;padding:10px 14px;border-radius:0 4px 4px 0;margin:12px 0;font-size:13px;color:#5c4a1c}
+  .callout.blue{border-color:#4a90d9;background:#eef4fb;color:#2c4a6b}
+  .callout.green{border-color:#63b963;background:#f0f9f0;color:#2c5527}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:700px){.two-col{grid-template-columns:1fr}}
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#8892a0;margin-bottom:4px}
+  .admin-toc{font-size:13px;margin-bottom:22px}
+  .admin-toc a{color:#1a73e8;text-decoration:none;margin-right:14px}
+</style>
+</head>
+<body>
+
+<div class="demobar">
+  <span class="tag">DEMO PROTOTYPE</span>
+  <nav>
+    <a id="nav-flow" class="active" onclick="show('gate')">1 · Participant experience (Zoho)</a>
+    <a id="nav-mail" onclick="show('email')">2 · Credential email preview</a>
+    <a id="nav-admin" onclick="show('admin')">3 · Admin setup guide (Zoho + Monday)</a>
+  </nav>
+  <span class="spacer"></span>
+  <span class="fic">All people, emails and data are fictional. Nothing here sends or stores anything.</span>
+</div>
+
+<!-- ==================== SCREEN 1 : EMAIL GATE (Zoho style) ==================== -->
+<div class="view on" id="view-gate">
+  <div class="zoho-page">
+    <div class="demo-hint">
+      <span class="lbl">Demo controls</span> &nbsp;Try a registered email:
+      <code onclick="fillEmail('alex.rivera@example.com')">alex.rivera@example.com</code>
+      <code onclick="fillEmail('maria.santos@example.com')">maria.santos@example.com</code>
+      <code onclick="fillEmail('j.chen@example.com')">j.chen@example.com</code>
+      &nbsp;— any other email shows the &ldquo;not registered&rdquo; path.
+    </div>
+    <div class="zoho-wrap">
+      <div class="zoho-title-band">UCON Harassment Prevention Training &mdash; Completion Quiz</div>
+      <div class="zoho-desc">
+        Thank you for attending the UCON Harassment Prevention class. To open the completion quiz,
+        enter the email address that UCON has registered for you.
+      </div>
+      <div class="zoho-field">
+        <label class="zoho-label" for="gateEmail">Email<span class="req">*</span></label>
+        <input class="zoho-input" id="gateEmail" type="email" placeholder="" autocomplete="off"
+               onkeydown="if(event.key==='Enter'){checkEmail()}">
+        <div class="zoho-error" id="gateErrFormat">Please enter a valid email address.</div>
+      </div>
+      <div class="zoho-note" id="gateErrUnreg">
+        <strong>This email isn&rsquo;t registered with UCON for this class.</strong>
+        Please enter the email address UCON has on file for you. If you believe this is a mistake,
+        contact UCON at <u>[UCON contact email]</u> or email <u>builderfaxsupport@gmail.com</u>.
+      </div>
+      <div class="zoho-actions">
+        <button class="zoho-btn" onclick="checkEmail()">Submit</button>
+      </div>
+      <div class="zoho-footer">
+        Do not submit confidential information such as credit card details, mobile and ATM PINs, OTPs, account passwords, etc.
+        <a class="abuse" href="#" onclick="return false">Report Abuse</a>
+        <div class="zoho-powered">Powered by <b>Zoho Forms</b></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 2 : QUIZ (Zoho style) ==================== -->
+<div class="view" id="view-quiz">
+  <div class="zoho-page">
+    <div class="zoho-wrap">
+      <div class="zoho-title-band">UCON Harassment Prevention Training &mdash; Completion Quiz</div>
+      <div class="zoho-desc">
+        Answer all five questions and select <b>Submit</b>. This quiz is about completion &mdash;
+        your responses help UCON confirm participation in today&rsquo;s class.
+      </div>
+      <form id="quizForm" onsubmit="return submitQuiz(event)">
+        <div class="zoho-q">
+          <div class="qtext">1. Which of the following is an example of &ldquo;quid pro quo&rdquo; harassment?<span class="req">*</span></div>
+          <label class="zoho-opt"><input type="radio" name="q1"> Two coworkers disagreeing about how to pour a concrete footing</label>
+          <label class="zoho-opt"><input type="radio" name="q1"> A supervisor suggesting a promotion in exchange for a date</label>
+          <label class="zoho-opt"><input type="radio" name="q1"> A crew debating which safety harness brand to buy</label>
+          <label class="zoho-opt"><input type="radio" name="q1"> A manager giving a formal written warning for repeated tardiness</label>
+        </div>
+        <div class="zoho-q">
+          <div class="qtext">2. A coworker regularly makes jokes about a colleague&rsquo;s accent at lunch. As a bystander, what is the best first step?<span class="req">*</span></div>
+          <label class="zoho-opt"><input type="radio" name="q2"> Ignore it &mdash; jokes are not harassment</label>
+          <label class="zoho-opt"><input type="radio" name="q2"> Speak up or report it to a supervisor or HR &mdash; harassment can be addressed even if you are not the target</label>
+          <label class="zoho-opt"><input type="radio" name="q2"> Wait until the colleague files a lawsuit</label>
+          <label class="zoho-opt"><input type="radio" name="q2"> Post about it on social media</label>
+        </div>
+        <div class="zoho-q">
+          <div class="qtext">3. Which of these can contribute to a hostile work environment?<span class="req">*</span></div>
+          <label class="zoho-opt"><input type="radio" name="q3"> Repeated unwelcome comments, slurs, or images based on a protected characteristic</label>
+          <label class="zoho-opt"><input type="radio" name="q3"> A one-time request to wear a hard hat in an active zone</label>
+          <label class="zoho-opt"><input type="radio" name="q3"> A scheduling change announced two weeks in advance</label>
+          <label class="zoho-opt"><input type="radio" name="q3"> A documented safety inspection</label>
+        </div>
+        <div class="zoho-q">
+          <div class="qtext">4. If you report harassment in good faith, your employer may NOT legally:<span class="req">*</span></div>
+          <label class="zoho-opt"><input type="radio" name="q4"> Investigate the complaint</label>
+          <label class="zoho-opt"><input type="radio" name="q4"> Ask you to describe what happened</label>
+          <label class="zoho-opt"><input type="radio" name="q4"> Retaliate against you &mdash; for example by cutting your hours or firing you for reporting</label>
+          <label class="zoho-opt"><input type="radio" name="q4"> Take corrective action if the complaint is verified</label>
+        </div>
+        <div class="zoho-q">
+          <div class="qtext">5. Who can be affected by workplace harassment?<span class="req">*</span></div>
+          <label class="zoho-opt"><input type="radio" name="q5"> Only new hires</label>
+          <label class="zoho-opt"><input type="radio" name="q5"> Only office staff, not field crews</label>
+          <label class="zoho-opt"><input type="radio" name="q5"> Anyone &mdash; any worker, at any level, on any site &mdash; and harassers can be coworkers, supervisors, clients, or vendors</label>
+          <label class="zoho-opt"><input type="radio" name="q5"> Only full-time employees</label>
+        </div>
+        <div class="zoho-actions">
+          <button class="zoho-btn" type="submit">Submit</button>
+        </div>
+      </form>
+      <div class="zoho-footer">
+        Do not submit confidential information such as credit card details, mobile and ATM PINs, OTPs, account passwords, etc.
+        <a class="abuse" href="#" onclick="return false">Report Abuse</a>
+        <div class="zoho-powered">Powered by <b>Zoho Forms</b></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 3 : CONFIRMATION ==================== -->
+<div class="view" id="view-confirm">
+  <div class="zoho-page">
+    <div class="confirm-box">
+      <div class="confirm-check">&#10003;</div>
+      <h2>Thank you! Your response has been recorded.</h2>
+      <div class="cred-msg">
+        <span class="who">Your credential is on its way.</span><br>
+        Your Harassment Prevention Training credential will be emailed to your UCON-registered
+        email address: <b id="confirmEmail">alex.rivera@example.com</b>
+      </div>
+      <p class="support-line">
+        If you don&rsquo;t receive your credential, reach out to
+        <a href="mailto:builderfaxsupport@gmail.com">builderfaxsupport@gmail.com</a>
+        or UCON at <u>[UCON contact email]</u>.
+      </p>
+      <button class="link-btn" onclick="show('email')">Preview the credential email &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 4 : CREDENTIAL EMAIL PREVIEW ==================== -->
+<div class="view" id="view-email">
+  <div class="mail-page">
+    <div class="demo-hint" style="max-width:680px">
+      <span class="lbl">Demo controls</span> &nbsp;This is a mock preview of the email the participant receives after the webhook fires.
+    </div>
+    <div class="mail-card">
+      <div class="mail-head">
+        <div class="subj">Your UCON Harassment Prevention Training credential</div>
+        <div class="mail-from">
+          <div class="mail-avatar">U</div>
+          <div>
+            <div class="fname">UCON Training via BuilderFAX</div>
+            <div class="faddr">credentials@builderfax.com &nbsp;&middot;&nbsp; to <span id="mailTo">alex.rivera@example.com</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="mail-body">
+        <p style="font-size:13.5px;color:#444;margin-bottom:18px">
+          Hi <span id="mailFirst">Alex</span>, congratulations on completing the UCON Harassment Prevention Training.
+          Your verified credential is below &mdash; keep it for your records and share it with any employer who asks.
+        </p>
+        <div class="cred-card">
+          <div class="cred-top">
+            <div class="org">UCON &middot; United Contractors</div>
+            <div class="course">Harassment Prevention Training</div>
+          </div>
+          <div class="cred-mid">
+            <div class="nm" id="credName">Alex Rivera</div>
+            <div style="height:10px"></div>
+            <div class="row"><span>Status</span><b style="color:#2e7d32">Completed &middot; Verified</b></div>
+            <div class="row"><span>Issued</span><b id="credDate">October 21, 2026</b></div>
+            <div class="row"><span>Credential ID</span><b>UCON-HP-2026-00417</b></div>
+            <div class="row"><span>Issued by</span><b>UCON, via BuilderFAX</b></div>
+          </div>
+          <div class="cred-bottom">
+            <div class="qr" id="qr"></div>
+            <div>
+              <a class="verify-btn" href="#" onclick="return false">Verify this credential</a>
+              <div class="cred-fine">Anyone can scan the code or tap verify to confirm this credential against UCON&rsquo;s record &mdash; no phone call needed.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mail-foot">
+        Issued by UCON via BuilderFAX. This credential was sent only to the email address UCON registered for this class.
+        Questions? Contact <a href="mailto:builderfaxsupport@gmail.com" style="color:#1a73e8">builderfaxsupport@gmail.com</a>.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 5 : ADMIN SETUP GUIDE ==================== -->
+<div class="view" id="view-admin">
+  <div class="admin-page">
+    <div class="admin-wrap">
+      <div class="kicker">For UCON admins</div>
+      <h1>Setup guide: gate the quiz to your members, fire one webhook</h1>
+      <div class="admin-sub">Exact clicks in Zoho (today) and Monday (where you&rsquo;re moving). Every step links to the vendor&rsquo;s own help page.</div>
+      <div class="admin-toc">
+        <a href="#a-zoho-gate">A &middot; Zoho: restrict to registered members</a>
+        <a href="#a-zoho-hook">B &middot; Zoho: webhook on submission</a>
+        <a href="#a-monday">C &middot; Monday: same two things</a>
+        <a href="#a-summary">D &middot; What changes for UCON</a>
+      </div>
+
+      <!-- A -->
+      <div class="admin-card" id="a-zoho-gate">
+        <h2>A &middot; Zoho: let only UCON-registered people in <span class="pill pill-zoho">ZOHO</span></h2>
+        <p>Zoho gives you three workable ways. Which one fits depends on whether your class roster lives as Zoho users or just as an email list.</p>
+
+        <h3>Option 1 &mdash; Zoho Survey, email-invite-only distribution (best fit for a class roster)</h3>
+        <ol>
+          <li>Open the survey &rarr; <b>Builder</b> &rarr; <span class="menu-path">Publish</span> tab &rarr; select your collector (or <b>Add New Collector</b>).</li>
+          <li>Choose <b>Email distribution</b> and import your UCON member list as contacts (CSV/XLS upload, or add addresses manually).</li>
+          <li>Send the invites &mdash; each registered member gets their own invite link; responses are tied to that contact. Keep the public link unshared so the roster is the only way in.</li>
+          <li>In <span class="menu-path">Launch &rarr; Restrictions &rarr; General Restrictions</span> tick <b>&ldquo;Allow only one response per respondent&rdquo;</b> so each member completes it once.</li>
+        </ol>
+        <div class="srclink">Source: <a href="https://help.zoho.com/portal/en/kb/survey/publish/private-audience/distribute-surveys-using-emails-invites" target="_blank">help.zoho.com &mdash; Distribute surveys using email invites (Private Audience)</a></div>
+
+        <h3>Option 2 &mdash; Zoho Survey, password protection</h3>
+        <ol>
+          <li><span class="menu-path">Launch &rarr; Visibility</span> &rarr; set a survey password and share it only with the class roster (email/WhatsApp).</li>
+          <li>Anyone without the password can&rsquo;t open the survey. Simple, but the password can be forwarded &mdash; fine for a one-day class, weaker for an always-on link.</li>
+        </ol>
+        <div class="srclink">Source: <a href="https://www.zoho.com/survey/features/secure-surveys.html" target="_blank">zoho.com/survey &mdash; Send secure surveys (password protection)</a> &middot; <a href="https://help.zoho.com/portal/en/kb/survey/launch/visibility/articles/visibility" target="_blank">Visibility settings</a></div>
+
+        <h3>Option 3 &mdash; Zoho Forms, share with specific users (only if respondents are in your Zoho org)</h3>
+        <ol>
+          <li>In the form builder, open the <span class="menu-path">Share</span> tab &rarr; <b>Share With &rarr; Specific Users</b>.</li>
+          <li>Enter the users&rsquo; email addresses (they must be users added to your Zoho Forms organization) and send the invite email.</li>
+        </ol>
+        <div class="callout">Caveat: Zoho Forms&rsquo; &ldquo;specific users&rdquo; sharing is built for people inside your Zoho organization &mdash; not for an external class roster. For external participants, use Option 1/2, or keep the email-check screen (the first screen of this demo) in front of the quiz: the participant types their email, it&rsquo;s checked against the UCON-registered list, and only then does the quiz open. That check is the piece BuilderFAX hosts for you.</div>
+        <div class="shot"><img src="assets/zoho-share-specific-users.png" alt="Zoho Forms Share tab - share with specific users"><div class="cap">Zoho Forms &mdash; Share tab, &ldquo;Share With &rarr; Specific Users&rdquo; (official Zoho help screenshot)</div></div>
+        <div class="srclink">Source: <a href="https://help.zoho.com/portal/en/kb/forms/sharing-forms/articles/sharing-a-form-within-your-organization" target="_blank">help.zoho.com &mdash; Sharing a form privately / with specific users</a></div>
+      </div>
+
+      <!-- B -->
+      <div class="admin-card" id="a-zoho-hook">
+        <h2>B &middot; Zoho: fire the webhook when someone submits <span class="pill pill-zoho">ZOHO</span></h2>
+        <h3>Zoho Forms (native webhook &mdash; recommended home for the quiz)</h3>
+        <ol>
+          <li>Open the form &rarr; <span class="menu-path">Integrations &rarr; Developer &amp; Automation &rarr; Webhooks</span>.</li>
+          <li>Click <b>Configure Webhook</b>.</li>
+          <li><b>Webhook URL:</b> the BuilderFAX endpoint (one URL per class).</li>
+          <li><b>Content Type:</b> <span class="menu-path">application/json</span>.</li>
+          <li><b>Payload Parameters:</b> map the fields BuilderFAX needs &mdash; <i>name, email, course, submission time</i> (any form field can be mapped, plus system fields).</li>
+          <li>Optional: <b>URL Parameters</b> (e.g. a secret key) or <b>Custom Headers</b> so BuilderFAX can tell real submissions from noise.</li>
+          <li><b>Save</b>. From then on, every submission POSTs to BuilderFAX instantly and the credential email goes out.</li>
+        </ol>
+        <div class="callout blue">If a submission ever fails to deliver: <span class="menu-path">All Entries &rarr; filter dropdown &rarr; &ldquo;Webhooks &ndash; Failed Entries&rdquo;</span> &rarr; select &rarr; <b>Re-push</b>.</div>
+        <div class="shot"><img src="assets/zoho-webhook-config.png" alt="Zoho Forms webhook configuration screen"><div class="cap">Zoho Forms &mdash; the actual Configure Webhook screen (official Zoho help screenshot)</div></div>
+        <div class="srclink">Source: <a href="https://help.zoho.com/portal/en/kb/forms/integrations/webhooks/articles/webhook-configuration" target="_blank">help.zoho.com &mdash; Configuring a Webhook (Zoho Forms)</a></div>
+
+        <h3>Zoho Survey (if the quiz stays a Survey)</h3>
+        <ol>
+          <li>Zoho Survey has no one-click webhook. Use <span class="menu-path">Builder &rarr; Hub &rarr; Triggers &rarr; Trigger Functions</span> &mdash; a short Deluge script (<span class="menu-path">invokeurl</span> POST) sends each new response to the BuilderFAX URL.</li>
+          <li>No-code alternative: connect Zoho Survey to Zoho Flow or Zapier and post &ldquo;new response&rdquo; to the BuilderFAX URL.</li>
+        </ol>
+        <div class="srclink">Source: <a href="https://help.zoho.com/portal/en/kb/survey/hub/triggers/trigger-functions/articles/trigger-functions" target="_blank">help.zoho.com &mdash; Trigger Functions (Zoho Survey)</a></div>
+      </div>
+
+      <!-- C -->
+      <div class="admin-card" id="a-monday">
+        <h2>C &middot; Monday WorkForms: same two things <span class="pill pill-monday">MONDAY</span></h2>
+
+        <h3>1 &middot; Gating the form</h3>
+        <ol>
+          <li>Open the WorkForm &rarr; <b>Share form</b> &rarr; <b>Sharing permissions</b>.</li>
+          <li><b>Require login</b> restricts the form to logged-in members of <i>your monday.com account</i> &mdash; i.e. your staff, not external class participants. It does not fit a member roster.</li>
+          <li><b>Enable password protection</b> works for external people, but only on the <b>Enterprise</b> plan.</li>
+        </ol>
+        <div class="callout">Caveat: Monday has no native &ldquo;only these emails may respond&rdquo; setting for external respondents, and <b>WorkForms has no built-in quiz/scoring</b> &mdash; questions are plain form fields. So on Monday the flow stays the same as this demo: the email-check screen in front (hosted by BuilderFAX) verifies the email against UCON&rsquo;s registered list, then reveals the WorkForm link.</div>
+        <div class="two-col">
+          <div class="shot"><img src="assets/monday-sharing-permissions.gif" alt="Monday WorkForms sharing permissions"><div class="cap">Share form &rarr; Sharing permissions (official monday.com support clip)</div></div>
+          <div class="shot"><img src="assets/monday-password.gif" alt="Monday WorkForms password protection"><div class="cap">Enable password protection (Enterprise) &mdash; official support clip</div></div>
+        </div>
+        <div class="srclink">Source: <a href="https://support.monday.com/hc/en-us/articles/11040473466258-WorkForms-settings-and-permissions" target="_blank">support.monday.com &mdash; WorkForms settings and permissions</a></div>
+
+        <h3>2 &middot; Webhook / automation on submission</h3>
+        <ol>
+          <li>Every WorkForm submission creates an item on the form&rsquo;s board. On that board, click <span class="menu-path">Integrations &rarr; Create</span> tab &rarr; find the <b>Webhooks</b> integration.</li>
+          <li>Choose the trigger <b>&ldquo;when an item is created&rdquo;</b> and paste the BuilderFAX URL. Monday sends a one-time JSON <b>challenge</b> to the URL; BuilderFAX echoes it back, and the webhook is live.</li>
+          <li>Each payload carries <span class="menu-path">event.columnValues</span> (the answers &mdash; name, email, course) plus <span class="menu-path">pulseName</span> and <span class="menu-path">triggerTime</span>.</li>
+          <li>Simpler in-platform option: board &rarr; <b>Integrate</b> &rarr; search <b>WorkForms</b> &rarr; recipes like &ldquo;When form is submitted&hellip;&rdquo; (notify, set date, email) &mdash; good for UCON&rsquo;s own internal alerts; the BuilderFAX credential send uses the webhook above.</li>
+        </ol>
+        <div class="two-col">
+          <div class="shot"><img src="assets/monday-webhook-1.png" alt="Monday Integrations - Webhooks"><div class="cap">Board &rarr; Integrations &rarr; Create &rarr; Webhooks (official monday.com support screenshot)</div></div>
+          <div class="shot"><img src="assets/monday-webhook-2.png" alt="Monday webhook trigger choice"><div class="cap">Choosing the webhook trigger event</div></div>
+        </div>
+        <div class="shot" style="max-width:640px"><img src="assets/monday-automations.gif" alt="Monday WorkForms automations"><div class="cap">Integrate &rarr; WorkForms automation recipes (official monday.com support clip)</div></div>
+        <div class="srclink">Sources: <a href="https://support.monday.com/hc/en-us/articles/360003540679-Webhook-integration" target="_blank">support.monday.com &mdash; Webhook integration</a> &middot; <a href="https://support.monday.com/hc/en-us/articles/14129260394002-Share-and-Analyze-your-WorkForm" target="_blank">Share and analyze your WorkForm</a></div>
+      </div>
+
+      <!-- D -->
+      <div class="admin-card" id="a-summary">
+        <h2>D &middot; What changes for UCON</h2>
+        <div class="callout green" style="font-size:14px">
+          Only two things change: <b>(1)</b> the quiz is gated so only your registered members can open it &mdash; email-invite-only in Zoho today, or the BuilderFAX email-check screen in front of the link;
+          and <b>(2)</b> one webhook is added so each submission instantly tells BuilderFAX to issue the named credential to that registered email.
+          Everything else in your class &mdash; the content, the session, the roster you already keep &mdash; stays exactly the same.
+          And because the credential is issued to the verified email instead of typed into a template, nobody can put someone else&rsquo;s name on a certificate again.
+        </div>
+      </div>
+
+      <p style="font-size:12px;color:#8892a0;text-align:center;margin-top:8px">
+        Demo prototype with fictional participants and data &middot; product screenshots are the vendors&rsquo; own help-center images, linked to their sources.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  var REGISTERED = {
+    "alex.rivera@example.com":   {first:"Alex",  name:"Alex Rivera"},
+    "maria.santos@example.com":  {first:"Maria", name:"Maria Santos"},
+    "j.chen@example.com":        {first:"Jordan",name:"Jordan Chen"}
+  };
+  var currentEmail = "alex.rivera@example.com";
+
+  function show(id){
+    var views = document.querySelectorAll('.view');
+    for (var i=0;i<views.length;i++) views[i].classList.remove('on');
+    document.getElementById('view-'+id).classList.add('on');
+    var links = document.querySelectorAll('.demobar nav a');
+    for (var j=0;j<links.length;j++) links[j].classList.remove('active');
+    if (id==='gate'||id==='quiz'||id==='confirm') document.getElementById('nav-flow').classList.add('active');
+    if (id==='email') document.getElementById('nav-mail').classList.add('active');
+    if (id==='admin') document.getElementById('nav-admin').classList.add('active');
+    window.scrollTo(0,0);
+  }
+  function fillEmail(e){
+    document.getElementById('gateEmail').value = e;
+    checkEmail();
+  }
+  function checkEmail(){
+    var inp = document.getElementById('gateEmail');
+    var v = (inp.value||'').trim().toLowerCase();
+    var fmtErr = document.getElementById('gateErrFormat');
+    var unreg = document.getElementById('gateErrUnreg');
+    fmtErr.style.display='none'; unreg.style.display='none'; inp.classList.remove('err');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){
+      fmtErr.style.display='block'; inp.classList.add('err'); return;
+    }
+    if (REGISTERED[v]){
+      currentEmail = v;
+      show('quiz');
+    } else {
+      unreg.style.display='block'; inp.classList.add('err');
+    }
+  }
+  function submitQuiz(ev){
+    ev.preventDefault();
+    var names=['q1','q2','q3','q4','q5'], ok=true;
+    for (var i=0;i<names.length;i++){
+      if (!document.querySelector('input[name="'+names[i]+'"]:checked')) ok=false;
+    }
+    if (!ok){ alert('Please answer all five questions before submitting.'); return false; }
+    var p = REGISTERED[currentEmail] || {first:'there', name:'Alex Rivera'};
+    document.getElementById('confirmEmail').textContent = currentEmail;
+    document.getElementById('mailTo').textContent = currentEmail;
+    document.getElementById('mailFirst').textContent = p.first;
+    document.getElementById('credName').textContent = p.name;
+    show('confirm');
+    return false;
+  }
+  /* decorative QR placeholder (not a real code) */
+  (function(){
+    var qr = document.getElementById('qr');
+    for (var r=0;r<9;r++) for (var c=0;c<9;c++){
+      var cell = document.createElement('i');
+      var finder = (r<3&&c<3)||(r<3&&c>5)||(r>5&&c<3);           /* 3 finder squares */
+      var ring   = finder && (r%3!==1 || c%3!==1);
+      var dot    = finder && (r%3===1 && c%3===1);
+      var noise  = !finder && ((r*7+c*13+r*c)%5<2);
+      if (ring || dot || noise) cell.className='b';
+      qr.appendChild(cell);
+    }
+  })();
+</script>
+</body>
+  </html>
