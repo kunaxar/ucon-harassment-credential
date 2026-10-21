@@ -62,6 +62,8 @@
   }
   .zoho-input:focus{border-color:#66afe9;box-shadow:0 0 6px rgba(102,175,233,.55)}
   .zoho-input.err{border-color:#d9534f;box-shadow:0 0 6px rgba(217,83,79,.35)}
+  .zoho-input.code{max-width:220px;letter-spacing:6px;font-size:18px;text-align:center;font-weight:600}
+  .zoho-input.locked{background:#f5f7f9;color:#555}
   .zoho-error{color:#d9534f;font-size:12.5px;margin-top:6px;display:none}
   .zoho-note{background:#fdf6e5;border:1px solid #f0dfa8;border-radius:4px;padding:12px 14px;margin:0 26px 26px;font-size:13px;color:#5a4a12;display:none}
   .zoho-note strong{display:block;margin-bottom:2px}
@@ -72,6 +74,17 @@
     box-shadow:0 1px 2px rgba(0,0,0,.18);
   }
   .zoho-btn:hover{background:var(--zoho-blue-dark)}
+  .verified-strip{
+    display:flex;align-items:center;gap:8px;max-width:420px;margin-top:8px;
+    background:#eef7ee;border:1px solid #bfe3bf;border-radius:4px;
+    padding:8px 12px;font-size:13px;color:#2c5527;
+  }
+  .verified-strip .tick{width:18px;height:18px;border-radius:50%;background:#63b963;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+  .otp-meta{padding:0 26px 22px;font-size:13px;color:#555;max-width:640px}
+  .otp-meta b{color:#333}
+  .otp-links{padding:0 26px 26px;font-size:13px;color:#555}
+  .otp-links a{color:var(--zoho-blue);cursor:pointer;text-decoration:none}
+  .otp-links a:hover{text-decoration:underline}
   .zoho-q{padding:0 26px 26px}
   .zoho-q .qtext{font-weight:700;font-size:13.5px;margin-bottom:10px}
   .zoho-q .qtext .req{color:#d33}
@@ -92,6 +105,7 @@
   }
   .demo-hint code{background:#fff;border:1px solid #c9dcf0;border-radius:3px;padding:1px 6px;cursor:pointer}
   .demo-hint .lbl{font-weight:700;letter-spacing:.3px;font-size:11px;color:#5a7699;text-transform:uppercase}
+  .demo-hint .fine{display:block;margin-top:6px;font-size:11.5px;color:#5a7699}
 
   /* confirmation */
   .confirm-box{max-width:680px;margin:40px auto 0;text-align:center;padding:0 16px}
@@ -130,7 +144,7 @@
   .qr{width:88px;height:88px;display:grid;grid-template-columns:repeat(9,1fr);grid-template-rows:repeat(9,1fr);border:3px solid #14315c;border-radius:4px;overflow:hidden;flex:none}
   .qr i{background:#fff}
   .qr i.b{background:#14315c}
-  .verify-btn{display:inline-block;background:var(--monday-blue);background:#1a73e8;color:#fff;text-decoration:none;border-radius:4px;padding:9px 18px;font-size:13.5px;font-weight:600}
+  .verify-btn{display:inline-block;background:#1a73e8;color:#fff;text-decoration:none;border-radius:4px;padding:9px 18px;font-size:13.5px;font-weight:600}
   .cred-fine{font-size:11.5px;color:#888;margin-top:8px}
   .mail-foot{padding:16px 24px;border-top:1px solid #eee;font-size:12px;color:#888}
 
@@ -144,6 +158,7 @@
   .admin-card h2 .pill{font-size:11px;font-weight:700;vertical-align:middle;margin-left:8px;border-radius:10px;padding:2px 9px}
   .pill-zoho{background:#e8f0fb;color:#2b62a6}
   .pill-monday{background:#eae8fd;color:#5038c7}
+  .pill-rec{background:#e6f6e6;color:#2c6e2c}
   .admin-card h3{font-size:14px;font-weight:700;margin:18px 0 8px;color:#222}
   .admin-card p,.admin-card li{font-size:13.5px;color:#333}
   .admin-card ol,.admin-card ul{padding-left:20px;margin:8px 0}
@@ -169,15 +184,15 @@
 <div class="demobar">
   <span class="tag">DEMO PROTOTYPE</span>
   <nav>
-    <a id="nav-flow" class="active" onclick="show('gate')">1 · Participant experience (Zoho)</a>
-    <a id="nav-mail" onclick="show('email')">2 · Credential email preview</a>
-    <a id="nav-admin" onclick="show('admin')">3 · Admin setup guide (Zoho + Monday)</a>
+    <a id="nav-flow" class="active" onclick="show('gate')">1 &middot; Participant experience (Zoho)</a>
+    <a id="nav-mail" onclick="show('email')">2 &middot; Credential email preview</a>
+    <a id="nav-admin" onclick="show('admin')">3 &middot; Admin setup guide (Zoho + Monday)</a>
   </nav>
   <span class="spacer"></span>
   <span class="fic">All people, emails and data are fictional. Nothing here sends or stores anything.</span>
 </div>
 
-<!-- ==================== SCREEN 1 : EMAIL GATE (Zoho style) ==================== -->
+<!-- ==================== SCREEN 1 : VERIFIED EMAIL GATE (Zoho Verification Page style) ==================== -->
 <div class="view on" id="view-gate">
   <div class="zoho-page">
     <div class="demo-hint">
@@ -185,27 +200,30 @@
       <code onclick="fillEmail('alex.rivera@example.com')">alex.rivera@example.com</code>
       <code onclick="fillEmail('maria.santos@example.com')">maria.santos@example.com</code>
       <code onclick="fillEmail('j.chen@example.com')">j.chen@example.com</code>
-      &nbsp;— any other email shows the &ldquo;not registered&rdquo; path.
+      &nbsp;&mdash; any other email shows the &ldquo;not registered&rdquo; path <b>before</b> any code is sent.
+      <span class="fine">Demo note: in the live Zoho setup the OTP goes to any email and the roster is enforced when BuilderFAX receives the submission; the roster-first check shown here is the BuilderFAX-hosted variant (see the Admin guide, option A3).</span>
     </div>
     <div class="zoho-wrap">
       <div class="zoho-title-band">UCON Harassment Prevention Training &mdash; Completion Quiz</div>
       <div class="zoho-desc">
         Thank you for attending the UCON Harassment Prevention class. To open the completion quiz,
-        enter the email address that UCON has registered for you.
+        verify the email address that UCON has registered for you. We will email you a one-time
+        verification code &mdash; this confirms the quiz and your credential go to <b>you</b>, not to
+        someone typing your email.
       </div>
       <div class="zoho-field">
         <label class="zoho-label" for="gateEmail">Email<span class="req">*</span></label>
         <input class="zoho-input" id="gateEmail" type="email" placeholder="" autocomplete="off"
-               onkeydown="if(event.key==='Enter'){checkEmail()}">
+               onkeydown="if(event.key==='Enter'){sendCode()}">
         <div class="zoho-error" id="gateErrFormat">Please enter a valid email address.</div>
       </div>
       <div class="zoho-note" id="gateErrUnreg">
-        <strong>This email isn&rsquo;t registered with UCON for this class.</strong>
+        <strong>This email isn&rsquo;t registered with UCON for this class, so no verification code has been sent.</strong>
         Please enter the email address UCON has on file for you. If you believe this is a mistake,
         contact UCON at <u>[UCON contact email]</u> or email <u>builderfaxsupport@gmail.com</u>.
       </div>
       <div class="zoho-actions">
-        <button class="zoho-btn" onclick="checkEmail()">Submit</button>
+        <button class="zoho-btn" onclick="sendCode()">Send verification code</button>
       </div>
       <div class="zoho-footer">
         Do not submit confidential information such as credit card details, mobile and ATM PINs, OTPs, account passwords, etc.
@@ -216,7 +234,42 @@
   </div>
 </div>
 
-<!-- ==================== SCREEN 2 : QUIZ (Zoho style) ==================== -->
+<!-- ==================== SCREEN 2 : OTP VERIFICATION (Zoho Verification Page style) ==================== -->
+<div class="view" id="view-otp">
+  <div class="zoho-page">
+    <div class="demo-hint">
+      <span class="lbl">Demo controls</span> &nbsp;No real email is sent in this demo. Demo code:
+      <code onclick="fillCode()">264159</code> &mdash; or type any 6-digit code.
+    </div>
+    <div class="zoho-wrap">
+      <div class="zoho-title-band">UCON Harassment Prevention Training &mdash; Completion Quiz</div>
+      <div class="otp-meta">
+        A 6-digit verification code has been sent to <b id="otpSentTo">alex.rivera@example.com</b>.
+        Enter it below to open the quiz. The code expires in 10 minutes.
+      </div>
+      <div class="zoho-field">
+        <label class="zoho-label" for="otpCode">Verification Code<span class="req">*</span></label>
+        <input class="zoho-input code" id="otpCode" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code"
+               onkeydown="if(event.key==='Enter'){verifyCode()}">
+        <div class="zoho-error" id="otpErr">Please enter the 6-digit code from the email.</div>
+      </div>
+      <div class="otp-links">
+        Didn&rsquo;t receive the code? <a onclick="resendCode()" id="resendLink">Resend code</a><span id="resendTimer"></span>
+        &nbsp;&middot;&nbsp; <a onclick="show('gate')">Use a different email</a>
+      </div>
+      <div class="zoho-actions">
+        <button class="zoho-btn" onclick="verifyCode()">Verify</button>
+      </div>
+      <div class="zoho-footer">
+        Do not submit confidential information such as credit card details, mobile and ATM PINs, OTPs, account passwords, etc.
+        <a class="abuse" href="#" onclick="return false">Report Abuse</a>
+        <div class="zoho-powered">Powered by <b>Zoho Forms</b></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 3 : QUIZ (Zoho style) ==================== -->
 <div class="view" id="view-quiz">
   <div class="zoho-page">
     <div class="zoho-wrap">
@@ -226,6 +279,11 @@
         your responses help UCON confirm participation in today&rsquo;s class.
       </div>
       <form id="quizForm" onsubmit="return submitQuiz(event)">
+        <div class="zoho-field">
+          <label class="zoho-label" for="quizEmail">Email<span class="req">*</span></label>
+          <input class="zoho-input locked" id="quizEmail" type="email" disabled>
+          <div class="verified-strip"><span class="tick">&#10003;</span> Verified &mdash; this is the address your credential will be issued to. It can&rsquo;t be edited.</div>
+        </div>
         <div class="zoho-q">
           <div class="qtext">1. Which of the following is an example of &ldquo;quid pro quo&rdquo; harassment?<span class="req">*</span></div>
           <label class="zoho-opt"><input type="radio" name="q1"> Two coworkers disagreeing about how to pour a concrete footing</label>
@@ -274,7 +332,7 @@
   </div>
 </div>
 
-<!-- ==================== SCREEN 3 : CONFIRMATION ==================== -->
+<!-- ==================== SCREEN 4 : CONFIRMATION ==================== -->
 <div class="view" id="view-confirm">
   <div class="zoho-page">
     <div class="confirm-box">
@@ -282,7 +340,7 @@
       <h2>Thank you! Your response has been recorded.</h2>
       <div class="cred-msg">
         <span class="who">Your credential is on its way.</span><br>
-        Your Harassment Prevention Training credential will be emailed to your UCON-registered
+        Your Harassment Prevention Training credential will be emailed to your verified
         email address: <b id="confirmEmail">alex.rivera@example.com</b>
       </div>
       <p class="support-line">
@@ -295,7 +353,7 @@
   </div>
 </div>
 
-<!-- ==================== SCREEN 4 : CREDENTIAL EMAIL PREVIEW ==================== -->
+<!-- ==================== SCREEN 5 : CREDENTIAL EMAIL PREVIEW ==================== -->
 <div class="view" id="view-email">
   <div class="mail-page">
     <div class="demo-hint" style="max-width:680px">
@@ -340,22 +398,22 @@
         </div>
       </div>
       <div class="mail-foot">
-        Issued by UCON via BuilderFAX. This credential was sent only to the email address UCON registered for this class.
+        Issued by UCON via BuilderFAX. This credential was sent only to the verified email address used for the quiz.
         Questions? Contact <a href="mailto:builderfaxsupport@gmail.com" style="color:#1a73e8">builderfaxsupport@gmail.com</a>.
       </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== SCREEN 5 : ADMIN SETUP GUIDE ==================== -->
+<!-- ==================== SCREEN 6 : ADMIN SETUP GUIDE ==================== -->
 <div class="view" id="view-admin">
   <div class="admin-page">
     <div class="admin-wrap">
       <div class="kicker">For UCON admins</div>
-      <h1>Setup guide: gate the quiz to your members, fire one webhook</h1>
-      <div class="admin-sub">Exact clicks in Zoho (today) and Monday (where you&rsquo;re moving). Every step links to the vendor&rsquo;s own help page.</div>
+      <h1>Setup guide: verified-email gate on one public link, fire one webhook</h1>
+      <div class="admin-sub">Exact clicks in Zoho (today) and Monday (where you&rsquo;re moving). Every step links to the vendor&rsquo;s own help page. No per-member invite links anywhere.</div>
       <div class="admin-toc">
-        <a href="#a-zoho-gate">A &middot; Zoho: restrict to registered members</a>
+        <a href="#a-zoho-gate">A &middot; Zoho: verified email before the quiz opens</a>
         <a href="#a-zoho-hook">B &middot; Zoho: webhook on submission</a>
         <a href="#a-monday">C &middot; Monday: same two things</a>
         <a href="#a-summary">D &middot; What changes for UCON</a>
@@ -363,33 +421,39 @@
 
       <!-- A -->
       <div class="admin-card" id="a-zoho-gate">
-        <h2>A &middot; Zoho: let only UCON-registered people in <span class="pill pill-zoho">ZOHO</span></h2>
-        <p>Zoho gives you three workable ways. Which one fits depends on whether your class roster lives as Zoho users or just as an email list.</p>
+        <h2>A &middot; Zoho: verify each participant&rsquo;s email <span class="pill pill-zoho">ZOHO</span></h2>
+        <p>The problem with a plain typed-email field: anyone can type a registered member&rsquo;s email and take the legally-required quiz in their name. The fix is to <b>verify the inbox</b> before the quiz opens &mdash; the verified address is then the one the credential (and BuilderFAX account) is issued to.</p>
 
-        <h3>Option 1 &mdash; Zoho Survey, email-invite-only distribution (best fit for a class roster)</h3>
+        <h3>Option A1 &mdash; Zoho Forms &ldquo;Verification Page&rdquo; with Email OTP <span class="pill pill-rec">RECOMMENDED</span></h3>
+        <p>Zoho Forms can gate the <b>public link</b> itself: before the quiz loads, the participant enters their email, receives a one-time code, and only a verified email opens the form. One link for the whole class &mdash; no per-member invites.</p>
         <ol>
-          <li>Open the survey &rarr; <b>Builder</b> &rarr; <span class="menu-path">Publish</span> tab &rarr; select your collector (or <b>Add New Collector</b>).</li>
-          <li>Choose <b>Email distribution</b> and import your UCON member list as contacts (CSV/XLS upload, or add addresses manually).</li>
-          <li>Send the invites &mdash; each registered member gets their own invite link; responses are tied to that contact. Keep the public link unshared so the roster is the only way in.</li>
-          <li>In <span class="menu-path">Launch &rarr; Restrictions &rarr; General Restrictions</span> tick <b>&ldquo;Allow only one response per respondent&rdquo;</b> so each member completes it once.</li>
+          <li>Open the quiz form in the builder. In the left panel, under <b>Form Fields</b>, scroll to <b>Advanced Elements</b> and click <span class="menu-path">Verification Page</span>.</li>
+          <li>In the Verification Page configuration screen, click <b>Configure</b> on the <b>OTP Verification</b> card.</li>
+          <li>In the <b>Configure OTP Verification</b> popup, select <b>Email</b>.</li>
+          <li>Choose the <b>From</b> address for the OTP email (add a From Name like &ldquo;UCON Training&rdquo;), and keep or edit the default subject/message.</li>
+          <li>Set <b>OTP Expiration Time</b> (e.g. 10 minutes) and the resend delay under OTP Expiry Settings.</li>
+          <li>Under <b>Map OTP Verification Field</b>, select the quiz&rsquo;s Email field &mdash; the verified address is prefilled into the submission. In that Email field&rsquo;s <b>Properties</b>, tick <b>Disable Field</b> so it can&rsquo;t be edited, and <b>No Duplicates</b> so each member completes the quiz once.</li>
         </ol>
-        <div class="srclink">Source: <a href="https://help.zoho.com/portal/en/kb/survey/publish/private-audience/distribute-surveys-using-emails-invites" target="_blank">help.zoho.com &mdash; Distribute surveys using email invites (Private Audience)</a></div>
+        <div class="shot"><img src="https://desk.zoho.in/galleryDocuments/edbsnde23dec3b5f369a63a4b566e1377e8b236ca4d9429e2826c8c724f7f6b13474d2fe0cd1b836c0f4849947bf4a86512395ebc7733ba4b7f09b01f68a9cc3cc056?inline=true" alt="Zoho Forms Configure OTP Verification popup - Email selected"><div class="cap">Zoho Forms &mdash; Configure OTP Verification popup, Email selected (official Zoho help screenshot)</div></div>
+        <div class="shot"><img src="https://desk.zoho.in/galleryDocuments/edbsnde23dec3b5f369a63a4b566e1377e8b2ce31c0a8e1f5ae7f34d5261d82efee17652ac419f7dbf3f0c8fbe7b56e25291d55b05bb0948dda21cfac375414460693?inline=true" alt="Map OTP Verification field to the Email field"><div class="cap">Map OTP Verification Field &mdash; the verified email is prefilled into the form (official Zoho help screenshot)</div></div>
+        <div class="callout"><b>Plan note:</b> OTP verification is a paid-plan feature. Zoho&rsquo;s per-plan limits for forms with OTP configuration: Basic &mdash; 25, Standard &mdash; 100, Professional / Premium / Express &mdash; 200. The Free plan is not listed, so the quiz form needs at least the <b>Basic</b> plan.</div>
+        <div class="callout blue"><b>What it proves &mdash; and what it doesn&rsquo;t.</b> The OTP proves the participant owns the inbox. It does <b>not</b> check the UCON roster &mdash; Zoho sends a code to any address. So keep the roster check on the BuilderFAX side: when the webhook fires, BuilderFAX matches the verified email against the class roster and issues the credential only for registered members (anything else is flagged to UCON, no credential sent). If you want non-members stopped <i>before</i> they can even start, use option A3.</div>
+        <div class="srclink">Source: <a href="https://help.zoho.com/portal/en/kb/forms/advanced-elements/verification-page/articles/configuring-otp-verification-via-email" target="_blank">help.zoho.com &mdash; OTP Verification via Email (Verification Page)</a> &middot; <a href="https://www.zoho.com/forms/pricing.html" target="_blank">zoho.com/forms &mdash; Plans &amp; pricing</a></div>
 
-        <h3>Option 2 &mdash; Zoho Survey, password protection</h3>
+        <h3>Option A2 &mdash; Inline OTP on the Email field (same thing, mid-form)</h3>
         <ol>
-          <li><span class="menu-path">Launch &rarr; Visibility</span> &rarr; set a survey password and share it only with the class roster (email/WhatsApp).</li>
-          <li>Anyone without the password can&rsquo;t open the survey. Simple, but the password can be forwarded &mdash; fine for a one-day class, weaker for an always-on link.</li>
+          <li>Select the Email field &rarr; <b>Properties</b> &rarr; <b>OTP Verification</b> &rarr; <b>Configure</b>.</li>
+          <li>The participant fills the form, clicks <b>Verify</b> next to the email field, gets the code, enters it inline, then submits. Same verified-email capture; the gate just sits inside the form instead of in front of it.</li>
         </ol>
-        <div class="srclink">Source: <a href="https://www.zoho.com/survey/features/secure-surveys.html" target="_blank">zoho.com/survey &mdash; Send secure surveys (password protection)</a> &middot; <a href="https://help.zoho.com/portal/en/kb/survey/launch/visibility/articles/visibility" target="_blank">Visibility settings</a></div>
+        <div class="shot"><img src="https://help.zoho.com/galleryDocuments/edbsnee9ab807a7b25b4e8f807e302b324b572be1d23edfa36746cad0134b99e11780cb7f38951c341b99476527100dc933acccdc4ede9a2193d884f86cdfc0d9cc87?inline=true" alt="Zoho Forms Email OTP inline configuration"><div class="cap">Email field &rarr; OTP Verification &rarr; Configure (official Zoho help screenshot)</div></div>
+        <div class="srclink">Source: <a href="https://help.zoho.com/portal/en/kb/forms/form-settings/privacy-features/inline-otp-verification/articles/inline-otp-verification" target="_blank">help.zoho.com &mdash; Inline OTP Verification</a></div>
 
-        <h3>Option 3 &mdash; Zoho Forms, share with specific users (only if respondents are in your Zoho org)</h3>
+        <h3>Option A3 &mdash; BuilderFAX-hosted verification screen in front of the link (works with any form tool)</h3>
         <ol>
-          <li>In the form builder, open the <span class="menu-path">Share</span> tab &rarr; <b>Share With &rarr; Specific Users</b>.</li>
-          <li>Enter the users&rsquo; email addresses (they must be users added to your Zoho Forms organization) and send the invite email.</li>
+          <li>Participants open one BuilderFAX link (this demo&rsquo;s first two screens): they type their email, BuilderFAX checks it against UCON&rsquo;s registered roster <b>first</b>, and only then emails a 6-digit code.</li>
+          <li>Entering the code reveals the quiz link (Zoho Form or Monday WorkForm). Unregistered emails get the friendly error before any code goes out &mdash; so non-members never touch the quiz.</li>
         </ol>
-        <div class="callout">Caveat: Zoho Forms&rsquo; &ldquo;specific users&rdquo; sharing is built for people inside your Zoho organization &mdash; not for an external class roster. For external participants, use Option 1/2, or keep the email-check screen (the first screen of this demo) in front of the quiz: the participant types their email, it&rsquo;s checked against the UCON-registered list, and only then does the quiz open. That check is the piece BuilderFAX hosts for you.</div>
-        <div class="shot"><img src="https://help.zoho.com/galleryDocuments/edbsnee9ab807a7b25b4e8f807e302b324b571040e1aebf208c16d8303847755997565672ce300d631f084232f16509f086f0798047708cc9f18087686814b5312a26?inline=true" alt="Zoho Forms Share tab - share with specific users"><div class="cap">Zoho Forms &mdash; Share tab, &ldquo;Share With &rarr; Specific Users&rdquo; (official Zoho help screenshot)</div></div>
-        <div class="srclink">Source: <a href="https://help.zoho.com/portal/en/kb/forms/sharing-forms/articles/sharing-a-form-within-your-organization" target="_blank">help.zoho.com &mdash; Sharing a form privately / with specific users</a></div>
+        <div class="callout blue">Use A3 when the roster must be enforced <i>before</i> the OTP, or when the quiz lives somewhere with no verification feature (Monday &mdash; see section C). On Zoho Forms, A1 alone is enough for most classes; A1 + BuilderFAX roster matching at the webhook covers the rest.</div>
       </div>
 
       <!-- B -->
@@ -401,9 +465,9 @@
           <li>Click <b>Configure Webhook</b>.</li>
           <li><b>Webhook URL:</b> the BuilderFAX endpoint (one URL per class).</li>
           <li><b>Content Type:</b> <span class="menu-path">application/json</span>.</li>
-          <li><b>Payload Parameters:</b> map the fields BuilderFAX needs &mdash; <i>name, email, course, submission time</i> (any form field can be mapped, plus system fields).</li>
+          <li><b>Payload Parameters:</b> map the fields BuilderFAX needs &mdash; <i>name, the OTP-verified email field, course, submission time</i> (any form field can be mapped, plus system fields).</li>
           <li>Optional: <b>URL Parameters</b> (e.g. a secret key) or <b>Custom Headers</b> so BuilderFAX can tell real submissions from noise.</li>
-          <li><b>Save</b>. From then on, every submission POSTs to BuilderFAX instantly and the credential email goes out.</li>
+          <li><b>Save</b>. From then on, every submission POSTs to BuilderFAX instantly; BuilderFAX matches the verified email to the roster and the credential email goes out.</li>
         </ol>
         <div class="callout blue">If a submission ever fails to deliver: <span class="menu-path">All Entries &rarr; filter dropdown &rarr; &ldquo;Webhooks &ndash; Failed Entries&rdquo;</span> &rarr; select &rarr; <b>Re-push</b>.</div>
         <div class="shot"><img src="https://desk.zoho.in/galleryDocuments/edbsn97837784c63ff27788d19305167f40484fa6b0bf457cfdaff2f0702261582ab2b7d42c4fc4ddd4b878b3faf3be40bd11a4667d852a7be23eac001582d98746dc?inline=true" alt="Zoho Forms webhook configuration screen"><div class="cap">Zoho Forms &mdash; the actual Configure Webhook screen (official Zoho help screenshot)</div></div>
@@ -411,10 +475,10 @@
 
         <h3>Zoho Survey (if the quiz stays a Survey)</h3>
         <ol>
-          <li>Zoho Survey has no one-click webhook. Use <span class="menu-path">Builder &rarr; Hub &rarr; Triggers &rarr; Trigger Functions</span> &mdash; a short Deluge script (<span class="menu-path">invokeurl</span> POST) sends each new response to the BuilderFAX URL.</li>
-          <li>No-code alternative: connect Zoho Survey to Zoho Flow or Zapier and post &ldquo;new response&rdquo; to the BuilderFAX URL.</li>
+          <li>Zoho Survey has no respondent email-OTP and no one-click webhook. Gating options there are a survey password or per-contact email invites with unique URLs &mdash; the per-member links we&rsquo;re avoiding. Best keep the quiz in Zoho Forms.</li>
+          <li>If it must stay a Survey: <span class="menu-path">Builder &rarr; Hub &rarr; Triggers &rarr; Trigger Functions</span> &mdash; a short Deluge script (<span class="menu-path">invokeurl</span> POST) sends each new response to the BuilderFAX URL, or use Zoho Flow / Zapier.</li>
         </ol>
-        <div class="srclink">Source: <a href="https://help.zoho.com/portal/en/kb/survey/hub/triggers/trigger-functions/articles/trigger-functions" target="_blank">help.zoho.com &mdash; Trigger Functions (Zoho Survey)</a></div>
+        <div class="srclink">Sources: <a href="https://www.zoho.com/survey/features/secure-surveys.html" target="_blank">zoho.com/survey &mdash; Send secure surveys</a> &middot; <a href="https://help.zoho.com/portal/en/kb/survey/hub/triggers/trigger-functions/articles/trigger-functions" target="_blank">Trigger Functions (Zoho Survey)</a></div>
       </div>
 
       <!-- C -->
@@ -425,9 +489,9 @@
         <ol>
           <li>Open the WorkForm &rarr; <b>Share form</b> &rarr; <b>Sharing permissions</b>.</li>
           <li><b>Require login</b> restricts the form to logged-in members of <i>your monday.com account</i> &mdash; i.e. your staff, not external class participants. It does not fit a member roster.</li>
-          <li><b>Enable password protection</b> works for external people, but only on the <b>Enterprise</b> plan.</li>
+          <li><b>Enable password protection</b> works for external people, but only on the <b>Enterprise</b> plan &mdash; and a password can be forwarded.</li>
         </ol>
-        <div class="callout">Caveat: Monday has no native &ldquo;only these emails may respond&rdquo; setting for external respondents, and <b>WorkForms has no built-in quiz/scoring</b> &mdash; questions are plain form fields. So on Monday the flow stays the same as this demo: the email-check screen in front (hosted by BuilderFAX) verifies the email against UCON&rsquo;s registered list, then reveals the WorkForm link.</div>
+        <div class="callout">Caveat: Monday has <b>no native verified-email / OTP for external respondents</b> (and WorkForms has no built-in quiz/scoring &mdash; questions are plain form fields). So on Monday the BuilderFAX-hosted verification screen (option A3) sits in front of the WorkForm link: roster check first, code by email, then the quiz opens.</div>
         <div class="two-col">
           <div class="shot"><img src="https://support.monday.com/hc/article_attachments/23100665504914" alt="Monday WorkForms sharing permissions"><div class="cap">Share form &rarr; Sharing permissions (official monday.com support clip)</div></div>
           <div class="shot"><img src="https://support.monday.com/hc/article_attachments/23100685515666" alt="Monday WorkForms password protection"><div class="cap">Enable password protection (Enterprise) &mdash; official support clip</div></div>
@@ -438,7 +502,7 @@
         <ol>
           <li>Every WorkForm submission creates an item on the form&rsquo;s board. On that board, click <span class="menu-path">Integrations &rarr; Create</span> tab &rarr; find the <b>Webhooks</b> integration.</li>
           <li>Choose the trigger <b>&ldquo;when an item is created&rdquo;</b> and paste the BuilderFAX URL. Monday sends a one-time JSON <b>challenge</b> to the URL; BuilderFAX echoes it back, and the webhook is live.</li>
-          <li>Each payload carries <span class="menu-path">event.columnValues</span> (the answers &mdash; name, email, course) plus <span class="menu-path">pulseName</span> and <span class="menu-path">triggerTime</span>.</li>
+          <li>Each payload carries <span class="menu-path">event.columnValues</span> (the answers &mdash; name, email, course) plus <span class="menu-path">pulseName</span> and <span class="menu-path">triggerTime</span>. BuilderFAX matches the email from the verification screen to the roster before issuing.</li>
           <li>Simpler in-platform option: board &rarr; <b>Integrate</b> &rarr; search <b>WorkForms</b> &rarr; recipes like &ldquo;When form is submitted&hellip;&rdquo; (notify, set date, email) &mdash; good for UCON&rsquo;s own internal alerts; the BuilderFAX credential send uses the webhook above.</li>
         </ol>
         <div class="two-col">
@@ -453,10 +517,11 @@
       <div class="admin-card" id="a-summary">
         <h2>D &middot; What changes for UCON</h2>
         <div class="callout green" style="font-size:14px">
-          Only two things change: <b>(1)</b> the quiz is gated so only your registered members can open it &mdash; email-invite-only in Zoho today, or the BuilderFAX email-check screen in front of the link;
-          and <b>(2)</b> one webhook is added so each submission instantly tells BuilderFAX to issue the named credential to that registered email.
+          Only two small things change, on one public link &mdash; no per-member invites:
+          <b>(1)</b> turn on email verification for the quiz &mdash; one setting in Zoho Forms (Verification Page &rarr; Email OTP, Basic plan or above); participants verify their own inbox with a 6-digit code before the quiz opens, and the verified address is locked into their submission;
+          and <b>(2)</b> one webhook, so each verified submission instantly tells BuilderFAX to issue the named credential to that verified, roster-matched email.
           Everything else in your class &mdash; the content, the session, the roster you already keep &mdash; stays exactly the same.
-          And because the credential is issued to the verified email instead of typed into a template, nobody can put someone else&rsquo;s name on a certificate again.
+          And because the email is verified before anyone answers a question, nobody can take the legally-required quiz in a registered member&rsquo;s name again.
         </div>
       </div>
 
@@ -474,6 +539,8 @@
     "j.chen@example.com":        {first:"Jordan",name:"Jordan Chen"}
   };
   var currentEmail = "alex.rivera@example.com";
+  var DEMO_CODE = "264159";
+  var resendInterval = null;
 
   function show(id){
     var views = document.querySelectorAll('.view');
@@ -481,16 +548,16 @@
     document.getElementById('view-'+id).classList.add('on');
     var links = document.querySelectorAll('.demobar nav a');
     for (var j=0;j<links.length;j++) links[j].classList.remove('active');
-    if (id==='gate'||id==='quiz'||id==='confirm') document.getElementById('nav-flow').classList.add('active');
+    if (id==='gate'||id==='otp'||id==='quiz'||id==='confirm') document.getElementById('nav-flow').classList.add('active');
     if (id==='email') document.getElementById('nav-mail').classList.add('active');
     if (id==='admin') document.getElementById('nav-admin').classList.add('active');
     window.scrollTo(0,0);
   }
   function fillEmail(e){
     document.getElementById('gateEmail').value = e;
-    checkEmail();
+    sendCode();
   }
-  function checkEmail(){
+  function sendCode(){
     var inp = document.getElementById('gateEmail');
     var v = (inp.value||'').trim().toLowerCase();
     var fmtErr = document.getElementById('gateErrFormat');
@@ -499,12 +566,56 @@
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){
       fmtErr.style.display='block'; inp.classList.add('err'); return;
     }
-    if (REGISTERED[v]){
-      currentEmail = v;
-      show('quiz');
-    } else {
-      unreg.style.display='block'; inp.classList.add('err');
+    if (!REGISTERED[v]){
+      /* roster check happens BEFORE any code is "sent" */
+      unreg.style.display='block'; inp.classList.add('err'); return;
     }
+    currentEmail = v;
+    document.getElementById('otpSentTo').textContent = v;
+    document.getElementById('otpCode').value = '';
+    document.getElementById('otpErr').style.display='none';
+    show('otp');
+    startResendTimer();
+    setTimeout(function(){ document.getElementById('otpCode').focus(); }, 50);
+  }
+  function fillCode(){
+    document.getElementById('otpCode').value = DEMO_CODE;
+    verifyCode();
+  }
+  function verifyCode(){
+    var inp = document.getElementById('otpCode');
+    var v = (inp.value||'').trim();
+    var err = document.getElementById('otpErr');
+    err.style.display='none'; inp.classList.remove('err');
+    if (!/^\d{6}$/.test(v)){
+      err.style.display='block'; inp.classList.add('err'); return;
+    }
+    /* demo: any 6-digit code verifies */
+    if (resendInterval){ clearInterval(resendInterval); resendInterval=null; }
+    document.getElementById('quizEmail').value = currentEmail;
+    show('quiz');
+  }
+  function startResendTimer(){
+    var link = document.getElementById('resendLink');
+    var timer = document.getElementById('resendTimer');
+    var s = 30;
+    link.style.pointerEvents='none'; link.style.color='#999';
+    timer.textContent = ' (available in ' + s + 's)';
+    if (resendInterval) clearInterval(resendInterval);
+    resendInterval = setInterval(function(){
+      s--;
+      if (s<=0){
+        clearInterval(resendInterval); resendInterval=null;
+        link.style.pointerEvents='auto'; link.style.color='';
+        timer.textContent='';
+      } else {
+        timer.textContent = ' (available in ' + s + 's)';
+      }
+    }, 1000);
+  }
+  function resendCode(){
+    document.getElementById('otpCode').value='';
+    startResendTimer();
   }
   function submitQuiz(ev){
     ev.preventDefault();
