@@ -804,14 +804,14 @@
           <li><b>Confirm email</b> &mdash; the learner types the email twice, so typos get caught.</li>
           <li><b>Phone number</b></li>
         </ul>
-        <div class="callout" style="font-size:14px">The prototype shows both the Zoho Survey and Monday looks. Whether each can be set up this way on UCON's actual plan is still to be checked.</div>
+        <div class="callout" style="font-size:14px">The prototype shows both the Zoho Survey and Monday looks. Per the vendors' current docs, multiple pages need Monday Pro or Enterprise, and webhooks need Zoho Survey Pro or Enterprise. UCON's actual plans have not been checked.</div>
       </div>
 
       <div class="admin-card" id="a-consent">
-        <h2>2 &middot; Page 2: consent before anything is created</h2>
+        <h2>2 &middot; Page 2: consent before anything is created <span style="font-size:11px;color:#b06b00;font-weight:600">(PROPOSED)</span></h2>
         <ul>
           <li>Tells the learner BuilderFAX will create an account from their name, email and phone number, and email them the credential.</li>
-          <li>A required agree box. Without it the learner cannot submit, and no account or credential email follows.</li>
+          <li>A required agree box. In this prototype, without it the learner cannot submit and no account or credential email follows. Zoho Survey and Monday each have their own way to build this (for example a required agree question, or a native consent setting), so the exact behaviour is not identical in both and must be set up and tested in each.</li>
           <li>Changing any detail, or going back, clears the agreement so they must agree again.</li>
         </ul>
         <div class="callout" style="font-size:14px">The consent wording is a draft for UCON and BuilderFAX to review. It is not legal advice.</div>
