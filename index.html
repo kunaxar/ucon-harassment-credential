@@ -709,7 +709,8 @@
           <div class="z-q"><div class="qt"><span class="req">*</span>11. Sexual harassment prevention training is required every year</div><label class="z-opt"><input type="radio" name="q11"> True</label><label class="z-opt"><input type="radio" name="q11"> False</label></div>
           <div class="z-q"><div class="qt"><span class="req">*</span>12. One of the best ways to stop sexual harassment is to ignore it</div><label class="z-opt"><input type="radio" name="q12"> True</label><label class="z-opt"><input type="radio" name="q12"> False</label></div>
           <div class="z-q"><div class="qt"><span class="req">*</span>13. The employee must tell the harasser to stop for it to be sexual harassment</div><label class="z-opt"><input type="radio" name="q13"> True</label><label class="z-opt"><input type="radio" name="q13"> False</label></div>
-          <label class="consent-line"><input type="checkbox" id="consentBox"> <span><b>Yes</b> - share my name and email with <b>Builderfax</b> so it can create my account and email my credential.</span></label>
+          <label class="consent-line"><input type="checkbox" id="consentBox"> <span>I agree to share my name and email with BuilderFax to receive my certificate by email and create my BuilderFax digital wallet account.</span></label>
+          <div class="consent-note" style="font-size:13px;color:#5f6368;margin:6px 2px 0">You don&rsquo;t need to download the BuilderFax app to receive your certificate.</div>
           <div class="z-actions"><button class="z-submit" type="submit">Submit</button></div>
         </div>
         <div class="z-powered" id="poweredBy">Powered by <b>Zoho Survey</b></div>
@@ -724,18 +725,15 @@
     <div class="stage">
       <div class="confirm-box">
         <div class="confirm-check">&#10003;</div>
-        <h2>Thank you! Your response has been recorded.</h2>
+        <h2>Thank you! Your quiz response has been recorded.</h2>
         <div class="cred-msg">
-          <span class="who">Your credential is on its way.</span><br>
-          You said yes, so Builderfax creates an account on <b id="confirmEmail">alex.rivera@example.com</b> and emails the
-          Harassment Prevention Training credential, made out to <b id="confirmName">Alex Rivera</b>.
+          Your certificate will be emailed to <b id="confirmEmail">alex.rivera@example.com</b>.<br>
+          You&rsquo;ll also get access to your BuilderFax digital wallet, where you can store and share your certificate.
         </div>
         <p class="support-line">
-          If you don&rsquo;t receive it, check the spelling of your email, then reach out to
-          <a href="mailto:builderfaxsupport@gmail.com">builderfaxsupport@gmail.com</a>
-          or UCON at <u>[UCON contact email]</u>.
+          Can&rsquo;t find your certificate? Check your spam folder or contact <u>[support email]</u>.
         </p>
-        <button class="link-btn" onclick="show('email')">Preview the credential email &rarr;</button>
+        <button class="link-btn" onclick="show('email')">Preview your certificate email &rarr;</button>
       </div>
       <div class="caption"><span class="cnum">STEP 8</span> Done - a named, per-person credential lands in their inbox. <span class="next"><button class="next-btn ghost" onclick="goStep(7)">&larr; Back</button> <button class="next-btn" onclick="show('email')">See the email &rarr;</button></span></div>
     </div>
@@ -908,7 +906,6 @@
       var name=document.getElementById('quizName').value.trim();
       var e1=document.getElementById('quizEmail').value.trim().toLowerCase();
       document.getElementById('confirmEmail').textContent = e1;
-      document.getElementById('confirmName').textContent = name;
       document.getElementById('mailTo').textContent = e1;
       document.getElementById('mailFirst').textContent = name.split(' ')[0];
       goStep(8);   /* said yes: Builderfax account + credential email */
