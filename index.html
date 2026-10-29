@@ -326,6 +326,15 @@
 .bfx-foot{text-align:center;font-size:11px;color:#999;padding:12px;border-top:1px solid #eee}
 .pgtag{font-size:12px;color:#5f6368;margin:0 0 10px}.consent-box{border:1px solid #dadce0;border-radius:8px;padding:16px;margin:12px 0;background:#fafbfc;font-size:13.5px;line-height:1.5}
 .consent-box ul{margin:8px 0 8px 18px;padding:0}.consent-row{display:flex;gap:10px;align-items:flex-start;margin-top:12px;font-weight:600}
+  .consent-line{display:flex;gap:10px;align-items:flex-start;margin:18px 0 4px;padding:12px 14px;border:1px solid #f0ad4e;background:#fff8ec;border-radius:8px;font-size:13.5px;line-height:1.45;cursor:pointer}
+  .consent-line input{margin-top:2px}
+  .cert{background:#fff;border:3px double #b08d3e;border-radius:6px;padding:28px 22px;margin:18px auto;max-width:430px;text-align:center;font-family:Georgia,'Times New Roman',serif;color:#333}
+  .cert-title{font-size:17px;letter-spacing:2.5px;font-weight:700;color:#8a6d1f}
+  .cert-sub{font-size:13px;margin-top:4px;color:#555}
+  .cert-line{font-size:12.5px;margin-top:14px}
+  .cert-name{font-size:16px;margin:8px auto 0;border-bottom:1px dashed #999;display:inline-block;padding:0 40px 2px;color:#999;font-style:italic}
+  .cert-org{font-size:13px;margin-top:18px;font-weight:700;color:#8a6d1f}
+  .cert-redirect{font-size:14px;color:#444;margin:4px 0 0}
 .z-submit[disabled]{opacity:.45;cursor:not-allowed}.decline-link{display:inline-block;margin-left:14px;color:#1a73e8;cursor:pointer;font-size:13px}
 </style>
 <style>
@@ -434,8 +443,9 @@
     <div class="st" id="st-4" onclick="goStep(4)"><b>4 &middot; Library</b>finds the training</div>
     <div class="st" id="st-5" onclick="goStep(5)"><b>5 &middot; Event page</b>Watch Now</div>
     <div class="st" id="st-6" onclick="goStep(6)"><b>6 &middot; Recording</b>quiz link below video</div>
-    <div class="st" id="st-7" onclick="goStep(7)"><b>7 &middot; Quiz</b>details + consent</div>
-    <div class="st" id="st-8" onclick="goStep(8)"><b>8 &middot; Credential</b>only after consent</div>
+    <div class="st" id="st-7" onclick="goStep(7)"><b>7 &middot; Quiz</b>fields + consent line</div>
+    <div class="st" id="st-8" onclick="goStep(8)"><b>8 &middot; Credential</b>if they say yes</div>
+    <div class="st" id="st-9" onclick="goStep(9)"><b>9 &middot; Certificate</b>today's flow if not</div>
   </div>
 
   <!-- STEP 1 : UCON homepage -->
@@ -679,13 +689,12 @@
         <form id="quizForm" onsubmit="return submitQuiz(event)">
         <div class="z-body">
           <div class="newfields">
-            <span class="nbadge">NEW - DETAILS (PAGE 1)</span>
-            <div class="pgtag">Page 1 of 2</div><div class="nwhy">Four fields added at the top of the existing quiz, plus a consent page before submit.</div>
+            <span class="nbadge">NEW - DETAILS</span>
+            <div class="nwhy">Three fields added at the top of the existing quiz, plus one consent line at the bottom.</div>
             <div class="nfield"><label>Name<span class="req">*</span></label><input id="quizName" type="text" autocomplete="off"></div>
             <div class="nfield"><label>Email<span class="req">*</span></label><input id="quizEmail" type="email" autocomplete="off"></div>
             <div class="nfield"><label>Confirm email<span class="req">*</span></label><input id="quizEmail2" type="email" autocomplete="off"></div>
-            <div class="nfield"><label>Phone number<span class="req">*</span></label><input id="quizPhone" type="tel" autocomplete="off"></div>
-            <div class="nerr" id="quizErr">Name, a valid email and phone number are required, and the two emails must match.</div>
+            <div class="nerr" id="quizErr">Name and a valid email are required, and the two emails must match.</div>
           </div>
           <div class="z-q"><div class="qt"><span class="req">*</span>1. A workplace of respect benefits everyone.</div><label class="z-opt"><input type="radio" name="q1"> True</label><label class="z-opt"><input type="radio" name="q1"> False</label></div>
           <div class="z-q"><div class="qt"><span class="req">*</span>2. It is sexual harassment to bully a gay man at work because he is in a relationship with another man or because his mannerisms or appearance do not conform to your ideas of what a man should be like.</div><label class="z-opt"><input type="radio" name="q2"> True</label><label class="z-opt"><input type="radio" name="q2"> False</label></div>
@@ -700,31 +709,14 @@
           <div class="z-q"><div class="qt"><span class="req">*</span>11. Sexual harassment prevention training is required every year</div><label class="z-opt"><input type="radio" name="q11"> True</label><label class="z-opt"><input type="radio" name="q11"> False</label></div>
           <div class="z-q"><div class="qt"><span class="req">*</span>12. One of the best ways to stop sexual harassment is to ignore it</div><label class="z-opt"><input type="radio" name="q12"> True</label><label class="z-opt"><input type="radio" name="q12"> False</label></div>
           <div class="z-q"><div class="qt"><span class="req">*</span>13. The employee must tell the harasser to stop for it to be sexual harassment</div><label class="z-opt"><input type="radio" name="q13"> True</label><label class="z-opt"><input type="radio" name="q13"> False</label></div>
-          <div class="z-actions"><button class="z-submit" type="button" onclick="toConsent()">Next</button></div>
-        </div>
-        <div class="z-body" id="consentPage" style="display:none">
-          <div class="newfields">
-            <span class="nbadge">NEW - PAGE 2 OF 2</span>
-            <div class="nwhy">Consent. Nothing is created and no email is sent unless the learner agrees here.</div>
-            <div class="consent-box">
-              <b>Before you submit</b>
-              <p style="margin:6px 0">If you agree, BuilderFAX will use the details you entered on page 1 to:</p>
-              <ul>
-                <li>create a BuilderFAX account for you using your name (<b id="cName">-</b>), email (<b id="cEmail">-</b>) and phone number (<b id="cPhone">-</b>);</li>
-                <li>email your Harassment Prevention Training credential to that address, with a link to open your BuilderFAX account.</li>
-              </ul>
-              <p style="margin:6px 0">[Draft wording for review. UCON and BuilderFAX to confirm the final text, what the phone number is used for, the privacy policy link, and how a person can withdraw or delete the account.]</p>
-              <label class="consent-row"><input type="checkbox" id="consentBox" onchange="setConsent(this.checked)"> I agree to have a BuilderFAX account created for me and my credential sent to this email.</label>
-            </div>
-            <div class="nerr" id="declineMsg" style="font-weight:600">You chose not to agree. No account is created and no credential email is sent. You can go back and change your choice.</div>
-          </div>
-          <div class="z-actions"><button class="z-submit" type="button" onclick="backToForm()" style="background:#fff;color:#1a73e8;border:1px solid #dadce0;margin-right:8px">Back</button><button class="z-submit" id="finalSubmit" type="submit" disabled>Submit</button><span class="decline-link" onclick="decline()">I do not agree</span></div>
+          <label class="consent-line"><input type="checkbox" id="consentBox"> <span><b>Yes</b> - share my name and email with <b>Builderfax</b> so it can create my account and email my credential.</span></label>
+          <div class="z-actions"><button class="z-submit" type="submit">Submit</button></div>
         </div>
         <div class="z-powered" id="poweredBy">Powered by <b>Zoho Survey</b></div>
         </form>
       </div>
     </div>
-    <div class="caption"><span class="cnum">STEP 7</span> Same quiz as today, plus four detail fields on page 1 and a consent page 2. Nothing is created or sent unless they agree. <a onclick="fillDemo()" style="color:#1a73e8;cursor:pointer">Autofill a demo participant</a> <span class="next"><button class="next-btn ghost" onclick="goStep(6)">&larr; Back</button></span></div>
+    <div class="caption"><span class="cnum">STEP 7</span> Same quiz as today, plus three detail fields at the top and one consent line at the bottom. If they say yes, Builderfax creates the account and emails the credential; if not, they get today&rsquo;s certificate download. <a onclick="fillDemo()" style="color:#1a73e8;cursor:pointer">Autofill a demo participant</a> <span class="next"><button class="next-btn ghost" onclick="goStep(6)">&larr; Back</button></span></div>
   </div>
 
   <!-- STEP 8 : confirmation, credential emailed -->
@@ -735,7 +727,7 @@
         <h2>Thank you! Your response has been recorded.</h2>
         <div class="cred-msg">
           <span class="who">Your credential is on its way.</span><br>
-          You agreed, so BuilderFAX creates an account on <b id="confirmEmail">alex.rivera@example.com</b> and emails the
+          You said yes, so Builderfax creates an account on <b id="confirmEmail">alex.rivera@example.com</b> and emails the
           Harassment Prevention Training credential, made out to <b id="confirmName">Alex Rivera</b>.
         </div>
         <p class="support-line">
@@ -749,6 +741,27 @@
     </div>
   </div>
 
+
+  <!-- STEP 9 : no yes - today's certificate download -->
+  <div class="fstep" id="step-9">
+    <div class="stage">
+      <div class="confirm-box">
+        <h2>Thank you! Your response has been recorded.</h2>
+        <p class="cert-redirect">Download your certificate below and write in your name.</p>
+        <div class="cert">
+          <div class="cert-title">CERTIFICATE OF COMPLETION</div>
+          <div class="cert-sub">Harassment Prevention Training - 1 Hour</div>
+          <div class="cert-line">This certifies that</div>
+          <div><span class="cert-name">(Name)</span></div>
+          <div class="cert-line">has successfully completed the 2025 Harassment Prevention class.</div>
+          <div class="cert-org">United Contractors</div>
+        </div>
+        <button class="link-btn" onclick="return false">Download certificate (PDF)</button>
+      </div>
+      <div class="caption"><span class="cnum">STEP 9</span> If they don&rsquo;t say yes, nothing is shared with Builderfax. They get what they get today: a PDF certificate to download, with a blank name line that anyone can fill in. <span class="next"><button class="next-btn ghost" onclick="goStep(7)">&larr; Back</button></span></div>
+    </div>
+  </div>
+
 </div>
 </div>
 <div class="view" id="view-email">
@@ -758,14 +771,14 @@
     </div>
     <div class="mail-card bfx">
       <div class="bfx-meta">
-        <div><span>From</span>BuilderFax &middot; United Contractors &lt;noreply@builderfax.com&gt;</div>
+        <div><span>From</span>Builderfax &middot; United Contractors &lt;noreply@builderfax.com&gt;</div>
         <div><span>To</span><b id="mailTo" style="font-weight:400">worker@email.com</b></div>
-        <div><span>Re</span><b>Your credential is ready in BuilderFax</b></div>
+        <div><span>Re</span><b>Your credential is ready in Builderfax</b></div>
       </div>
-      <div class="bfx-banner"><img src="data:image/webp;base64,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" alt="BuilderFAX" style="height:38px;display:block"></div>
+      <div class="bfx-banner"><img src="data:image/webp;base64,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" alt="Builderfax" style="height:38px;display:block"></div>
       <div class="bfx-body">
         <p>Hi <span id="mailFirst">[Name]</span>,</p>
-        <p><b>United Contractors</b> just issued you a new credential. It&rsquo;s ready in your BuilderFax wallet &mdash; your single place to carry, manage, and share every work credential you&rsquo;ve earned.</p>
+        <p><b>United Contractors</b> just issued you a new credential. It&rsquo;s ready in your Builderfax wallet &mdash; your single place to carry, manage, and share every work credential you&rsquo;ve earned.</p>
         <div class="bfx-cred"><div class="bfx-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg></div><div style="flex:1"><b>Harassment Prevention Training</b><div class="bfx-sm">Issued by United Contractors</div></div><span class="bfx-ver">Verified</span></div>
         <table class="bfx-tbl">
           <tr><td>Issue date</td><td>Jun 15, 2026</td></tr>
@@ -773,7 +786,7 @@
           <tr><td>Credential ID</td><td>UC-2026-00438</td></tr>
           <tr><td>Issued by</td><td>United Contractors</td></tr>
         </table>
-        <div class="bfx-manage"><b>Manage in BuilderFax</b><div class="bfx-sm">Open your wallet to view, share, or download this credential any time.</div><a class="bfx-btn" href="#" onclick="return false">Open BuilderFax</a></div>
+        <div class="bfx-manage"><b>Manage in Builderfax</b><div class="bfx-sm">Open your wallet to view, share, or download this credential any time.</div><a class="bfx-btn" href="#" onclick="return false">Open Builderfax</a></div>
         <ul class="bfx-list">
           <li><b>All your credentials, one place.</b> Every cert and ticket from every employer &mdash; always in your pocket, always current.</li>
           <li><b>Prove it in seconds.</b> Pull up verified proof on-site, at the gate, or with a new employer. No paper, no digging.</li>
@@ -783,7 +796,7 @@
         <div class="bfx-att"><div class="bfx-attt">ATTACHMENTS (1)</div><div class="bfx-attr"><div class="bfx-pdf"></div><div style="flex:1"><b>Credential_Certificate.pdf</b><div class="bfx-sm">PDF &middot; 2.4 MB &middot; Issued by United Contractors</div></div><span class="bfx-dl">Download</span></div></div>
       </div>
       <div class="bfx-foot" style="border-top:0;padding-bottom:4px;color:#b06b00">Prototype sample values: the dates, expiry and credential ID shown here are placeholders copied from the design reference. They say nothing about how long UCON training stays valid.</div>
-      <div class="bfx-foot">&copy; 2026 BuilderFax &middot; All rights reserved</div>
+      <div class="bfx-foot">&copy; 2026 Builderfax &middot; All rights reserved</div>
     </div>
   </div>
 </div>
@@ -794,36 +807,36 @@
     <div class="admin-wrap">
       <div class="kicker">For UCON admins</div>
       <h1>What changes for UCON</h1>
-      <div class="admin-sub">Same quiz, same link, same class. Four fields and a consent page are added to the quiz. This page describes the proposal; the actual setup depends on UCON's Zoho or Monday plan and on BuilderFAX confirming its side.</div>
+      <div class="admin-sub">Same quiz, same link, same class. Three fields and a consent line are added to the quiz. This page describes the proposal; the actual setup depends on UCON's Zoho or Monday plan and on Builderfax confirming its side.</div>
 
       <div class="admin-card" id="a-fields">
-        <h2>1 &middot; Page 1: add four fields to the quiz</h2>
+        <h2>1 &middot; Add three fields to the quiz</h2>
         <ul>
           <li><b>Name</b></li>
           <li><b>Email</b></li>
           <li><b>Confirm email</b> &mdash; the learner types the email twice, so typos get caught.</li>
-          <li><b>Phone number</b></li>
         </ul>
-        <div class="callout" style="font-size:14px">The prototype shows both the Zoho Survey and Monday looks. Per the vendors' current docs, multiple pages need Monday Pro or Enterprise, and webhooks need Zoho Survey Pro or Enterprise. UCON's actual plans have not been checked.</div>
+        <div class="callout" style="font-size:14px">The prototype shows both the Zoho Survey and Monday looks. No extra page is needed - everything sits on the one quiz screen. Per the vendors' current docs, webhooks need Zoho Survey Pro or Enterprise. UCON's actual plans have not been checked.</div>
       </div>
 
       <div class="admin-card" id="a-consent">
-        <h2>2 &middot; Page 2: consent before anything is created <span style="font-size:11px;color:#b06b00;font-weight:600">(PROPOSED)</span></h2>
+        <h2>2 &middot; Consent line at the bottom of the quiz <span style="font-size:11px;color:#b06b00;font-weight:600">(PROPOSED)</span></h2>
         <ul>
-          <li>Tells the learner BuilderFAX will create an account from their name, email and phone number, and email them the credential.</li>
-          <li>A required agree box. In this prototype, without it the learner cannot submit and no account or credential email follows. Zoho Survey and Monday each have their own way to build this (for example a required agree question, or a native consent setting), so the exact behaviour is not identical in both and must be set up and tested in each.</li>
-          <li>Changing any detail, or going back, clears the agreement so they must agree again.</li>
+          <li>One line at the bottom of the quiz asks the learner to say yes to sharing their name and email with Builderfax.</li>
+          <li>If they say yes: Builderfax creates an account from their name and email, and emails them the credential.</li>
+          <li>If they don&rsquo;t: nothing is shared with Builderfax. They get UCON&rsquo;s current certificate download, like today, and Builderfax ignores the submission even if the quiz sends it.</li>
+          <li>Both Zoho Survey and Monday can add a simple checkbox question like this; it must be set up and tested in each.</li>
         </ul>
-        <div class="callout" style="font-size:14px">The consent wording is a draft for UCON and BuilderFAX to review. It is not legal advice.</div>
+        <div class="callout" style="font-size:14px">The consent wording is a draft for UCON and Builderfax to review. It is not legal advice.</div>
       </div>
 
       <div class="admin-card" id="a-bfax">
-        <h2>3 &middot; BuilderFAX does the rest (to be confirmed)</h2>
+        <h2>3 &middot; Builderfax does the rest (to be confirmed)</h2>
         <ul>
-          <li>Only for submissions where consent was given: creates the BuilderFAX account, issues the credential under the name entered, and emails it.</li>
+          <li>Only for submissions where consent was given: creates the Builderfax account, issues the credential under the name entered, and emails it.</li>
           <li>Ignores any submission without consent, even if the quiz sends it.</li>
         </ul>
-        <div class="callout" style="font-size:14px">This needs the quiz to send each completed response to BuilderFAX (a webhook or similar), plus BuilderFAX work to create accounts and send the email. That engineering and the plan requirements are still to be confirmed. The prototype only simulates it.</div>
+        <div class="callout" style="font-size:14px">This needs the quiz to send each completed response to Builderfax (a webhook or similar), plus Builderfax work to create accounts and send the email. That engineering and the plan requirements are still to be confirmed. The prototype only simulates it.</div>
       </div>
 
       <div class="admin-card" id="a-risk">
@@ -853,7 +866,7 @@
     var steps = document.querySelectorAll('.fstep');
     for (var i=0;i<steps.length;i++) steps[i].classList.remove('on');
     document.getElementById('step-'+n).classList.add('on');
-    for (var k=1;k<=8;k++){
+    for (var k=1;k<=9;k++){
       var s = document.getElementById('st-'+k);
       if (s) s.classList.toggle('cur', k===n);
     }
@@ -872,58 +885,36 @@
     document.getElementById('quizName').value = 'Alex Rivera';
     document.getElementById('quizEmail').value = 'alex.rivera@example.com';
     document.getElementById('quizEmail2').value = 'alex.rivera@example.com';
-    document.getElementById('quizPhone').value = '(555) 010-0123';
     for (var i=1;i<=13;i++){
       var r = document.querySelector('input[name="q'+i+'"]');
       if (r) r.checked = true;
     }
   }
 
-  var consentGiven=false;
-  function setConsent(v){
-    consentGiven=!!v;
-    document.getElementById('consentBox').checked=consentGiven;
-    document.getElementById('finalSubmit').disabled=!consentGiven;
-    if(consentGiven) document.getElementById('declineMsg').style.display='none';
-  }
-  function validPage1(){
+  function validQuiz(){
     var name=document.getElementById('quizName').value.trim();
     var e1=document.getElementById('quizEmail').value.trim().toLowerCase();
     var e2=document.getElementById('quizEmail2').value.trim().toLowerCase();
-    var ph=document.getElementById('quizPhone').value.replace(/[^0-9]/g,'');
     var err=document.getElementById('quizErr');
-    if(!name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e1)||e1!==e2||ph.length<7){err.style.display='block';document.getElementById('quizName').scrollIntoView();return false;}
+    if(!name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e1)||e1!==e2){err.style.display='block';document.getElementById('quizName').scrollIntoView();return false;}
     err.style.display='none';
     for (var i=1;i<=13;i++){ if (!document.querySelector('input[name="q'+i+'"]:checked')){ alert('Please answer all 13 questions before continuing.'); return false; } }
     return true;
   }
-  function toConsent(){
-    if(!validPage1()) return;
-    setConsent(false);
-    document.getElementById('declineMsg').style.display='none';
-    document.getElementById('cName').textContent=document.getElementById('quizName').value.trim();
-    document.getElementById('cEmail').textContent=document.getElementById('quizEmail').value.trim();
-    document.getElementById('cPhone').textContent=document.getElementById('quizPhone').value.trim();
-    document.querySelector('#quizForm .z-body').style.display='none';
-    document.getElementById('consentPage').style.display='block'; document.getElementById('quizCard').scrollIntoView();
-  }
-  function backToForm(){
-    setConsent(false);   /* editing details always clears any earlier agreement */
-    document.getElementById('declineMsg').style.display='none';
-    document.querySelector('#quizForm .z-body').style.display='';document.getElementById('consentPage').style.display='none';
-  }
-  function decline(){setConsent(false);document.getElementById('declineMsg').style.display='block';}
-  ['quizName','quizEmail','quizEmail2','quizPhone'].forEach(function(id){document.getElementById(id).addEventListener('input',function(){setConsent(false);});});
   function submitQuiz(ev){
     ev.preventDefault();
-    if(!consentGiven || !validPage1()) return false;   /* no consent, no account, no email */
-    var name=document.getElementById('quizName').value.trim();
-    var e1=document.getElementById('quizEmail').value.trim().toLowerCase();
-    document.getElementById('confirmEmail').textContent = e1;
-    document.getElementById('confirmName').textContent = name;
-    document.getElementById('mailTo').textContent = e1;
-    document.getElementById('mailFirst').textContent = name.split(' ')[0];
-    goStep(8);
+    if(!validQuiz()) return false;
+    if(document.getElementById('consentBox').checked){
+      var name=document.getElementById('quizName').value.trim();
+      var e1=document.getElementById('quizEmail').value.trim().toLowerCase();
+      document.getElementById('confirmEmail').textContent = e1;
+      document.getElementById('confirmName').textContent = name;
+      document.getElementById('mailTo').textContent = e1;
+      document.getElementById('mailFirst').textContent = name.split(' ')[0];
+      goStep(8);   /* said yes: Builderfax account + credential email */
+    } else {
+      goStep(9);   /* no yes: today's certificate download, nothing shared */
+    }
     return false;
   }
   /* decorative QR placeholder (not a real code) */
@@ -941,15 +932,15 @@
     }
   })();
 
-  /* deep links for review: #step-1..8, #step-7m (Monday look), #email, #admin */
+  /* deep links for review: #step-1..9, #step-7m (Monday look), #step-7c (filled, yes ticked), #step-7d (filled, no tick), #email, #admin */
   (function(){
     var h = (location.hash||'').replace('#','');
     if (!h) return;
     if (h==='email') return show('email');
     if (h==='admin') return show('admin');
     if (h==='step-7m'){ setVendor('monday'); return goStep(7); }
-    if (h==='step-7c'||h==='step-7d'||h==='step-7cm'){ if(h==='step-7cm') setVendor('monday'); goStep(7); fillDemo(); toConsent(); if(h==='step-7d') decline(); return; }
-    var m = h.match(/^step-([1-8])$/);
+    if (h==='step-7c'||h==='step-7d'||h==='step-7cm'){ if(h==='step-7cm') setVendor('monday'); goStep(7); fillDemo(); if(h!=='step-7d') document.getElementById('consentBox').checked=true; return; }
+    var m = h.match(/^step-([1-9])$/);
     if (m) goStep(parseInt(m[1],10));
     setTimeout(function(){ window.scrollTo(0,0); }, 80);
   })();
